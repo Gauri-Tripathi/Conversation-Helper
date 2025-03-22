@@ -1,0 +1,8 @@
+__pycache__/
+*.log
+*.ckpt
+*.pt
+*.bin
+*.gguf
+data/datasets/
+model/
