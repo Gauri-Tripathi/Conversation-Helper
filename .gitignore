@@ -4,5 +4,4 @@ __pycache__/
 *.pt
 *.bin
 *.gguf
-data/datasets/
-model/
+
