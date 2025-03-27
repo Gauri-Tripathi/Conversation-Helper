@@ -215,7 +215,7 @@ The fine-tuning process used:
 
 ## 📸 Examples
 
-*Note: Include screenshots of the model in action here to demonstrate its capabilities*
+**
 
 ## 🔧 Model Versions
 
@@ -230,12 +230,4 @@ The model was fine-tuned using PyTorch and the Hugging Face Transformers library
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgements
 
-- Meta for the base Llama-3.1-8B-Instruct model
-- Hugging Face for their Transformers library and model hosting
-- The creators of AdaLoRA for their innovative parameter-efficient fine-tuning method
-
-## ⚠️ Disclaimer
-
-This model is designed for generating human-like conversational responses. While it can generate sarcastic or humorous content, it is not intended to produce harmful, offensive, or inappropriate content. Users are responsible for ensuring appropriate use of the model's outputs.
