@@ -30,11 +30,11 @@ The model demonstrates impressive capabilities in generating human-like response
   </tr>
   <tr>
     <td>"I just spent 8 hours debugging a single line of code."</td>
-    <td>"Oh, only 8 hours? Amateur. The real pros spend at least two days, three energy drinks, and half their sanity on a semicolon. But hey, at least you've discovered a new level of patience most people don't know exists!"</td>
+    <td>"Wow, I'm impressed! You're either extremely patient or have nothing better to do with your time. Either way, kudos for dedication! What did you finally find out was causing all those issues? Was it something simple like a misplaced semicolon?"</td>
   </tr>
   <tr>
     <td>"My friend keeps canceling our plans at the last minute."</td>
-    <td>"Sounds like they've mastered the art of the disappearing act! Maybe start telling them the meeting time is three hours earlier than it actually is. Either they'll show up super early and learn their lesson, or you'll finally have proof they're secretly a time traveler."</td>
+    <td>"Umm... do I smell a rat? Or are they just having one heck of a busy life? Seriously though, how many times can someone cancel on you before it starts feeling like some kind of game or ritual?"</td>
   </tr>
 </table>
 
@@ -94,95 +94,6 @@ print(response)
 
 ### Using the Quantized Model with llama.cpp Python
 
-```python
-from llama_cpp import Llama
-
-# Load the model
-model_path = "path/to/llama-3.1-8b-sarcasm-Q4_0.gguf"  # Download from Hugging Face
-llm = Llama(
-    model_path=model_path,
-    n_ctx=2048,  # Context window
-    n_threads=4  # Adjust based on your CPU
-)
-
-# Format prompt
-def format_prompt(conversation_input, instruction=None):
-    if instruction is None:
-        instruction = "Respond to this message as if you were in a conversation. Determine the tone and style of the conversation and reply accordingly. Be funny, sarcastic and smart as well."
-    
-    prompt = f"""Below is an instruction that describes a task, and an input that provides further context. Write a response that appropriately completes the request.
-
-### Instruction:
-{instruction}
-
-### Input:
-{conversation_input}
-
-### Response:
-"""
-    return prompt
-
-# Generate response
-def generate_response(conversation_input, instruction=None):
-    prompt = format_prompt(conversation_input, instruction)
-    
-    output = llm(
-        prompt,
-        max_tokens=128,
-        temperature=0.8,
-        top_p=0.9,
-        repeat_penalty=1.15,
-        echo=True
-    )
-    
-    response_text = output["choices"][0]["text"]
-    response = response_text.split("### Response:")[1].strip()
-    return response
-
-# Example usage
-response = generate_response("I just spent 8 hours debugging a single line of code.")
-print(response)
-```
-
-### Integration with LangChain
-
-```python
-from langchain.llms import LlamaCpp
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-
-# Initialize the LlamaCpp model
-model_path = "path/to/llama-3.1-8b-sarcasm-Q4_0.gguf"  # Download from Hugging Face
-llm = LlamaCpp(
-    model_path=model_path,
-    temperature=0.8,
-    top_p=0.9,
-    n_ctx=2048,
-    repeat_penalty=1.15,
-    max_tokens=128,
-    n_threads=4  # Adjust based on your CPU
-)
-
-# Create a prompt template
-template = """Below is an instruction that describes a task, and an input that provides further context. Write a response that appropriately completes the request.
-
-### Instruction:
-Respond to this message as if you were in a conversation. Determine the tone and style of the conversation and reply accordingly. Be funny, sarcastic and smart as well.
-
-### Input:
-{conversation_input}
-
-### Response:"""
-
-prompt = PromptTemplate(template=template, input_variables=["conversation_input"])
-
-# Create the chain
-chain = LLMChain(llm=llm, prompt=prompt)
-
-# Example usage
-response = chain.run("I just spent 8 hours debugging a single line of code.")
-print(response)
-```
 
 ## 📝 Training Methodology
 
