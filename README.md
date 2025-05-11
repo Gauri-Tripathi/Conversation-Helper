@@ -53,21 +53,28 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
 # Format input
-def format_prompt(conversation_input, instruction=None):
-    if instruction is None:
-        instruction = "Respond to this message as if you were in a conversation. Determine the tone and style of the conversation and reply accordingly. Be funny, sarcastic and smart as well."
+def format_prompt(instruction: str, input_text: str) -> str:
+    """Format the prompt to match training structure with conversation context"""
+    # Split input into messages if it contains multiple turns
+    messages = input_text.split('\n')
     
-    prompt = f"""Below is an instruction that describes a task, and an input that provides further context. Write a response that appropriately completes the request.
+    conversation_context = ""
+    if len(messages) > 1:
+        conversation_context = "Context:\n" + "\n".join(f"Message {i+1}: {msg.strip()}" 
+                                                      for i, msg in enumerate(messages))
+    else:
+        conversation_context = f"Context:\nMessage: {input_text}"
+
+    return f"""Below is an instruction that describes a task, and an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
 {instruction}
 
 ### Input:
-{conversation_input}
+{conversation_context}
 
 ### Response:
 """
-    return prompt
 
 # Generate response
 def generate_response(conversation_input, instruction=None):
