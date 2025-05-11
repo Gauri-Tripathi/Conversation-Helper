@@ -38,7 +38,6 @@ The model demonstrates impressive capabilities in generating human-like response
   </tr>
 </table>
 
-*Note: Screenshots demonstrating the model in action can be found in the [Examples](#examples) section below.*
 
 ## 🚀 Getting Started
 
